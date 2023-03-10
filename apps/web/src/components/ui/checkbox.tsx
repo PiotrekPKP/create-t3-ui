@@ -24,12 +24,17 @@ const Checkbox = React.forwardRef<
 ));
 Checkbox.displayName = CheckboxPrimitive.Root.displayName;
 
-const CheckboxWithText: React.FC<{ text: string }> = ({ text }) => {
+const CheckboxWithText: React.FC<{
+  text: string;
+  id: string;
+  checked: CheckboxPrimitive.CheckedState;
+  onCheckedChange: (checked: CheckboxPrimitive.CheckedState) => void;
+}> = ({ text, id, checked, onCheckedChange }) => {
   return (
     <div className="items-top flex items-center space-x-2">
-      <Checkbox id="terms1" />
+      <Checkbox id={id} checked={checked} onCheckedChange={onCheckedChange} />
       <label
-        htmlFor="terms1"
+        htmlFor={id}
         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
       >
         {text}

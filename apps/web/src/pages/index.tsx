@@ -1,3 +1,4 @@
+import { CheckedState } from "@radix-ui/react-checkbox";
 import { NextPage } from "next";
 import { useTheme } from "next-themes";
 import Image from "next/image";
@@ -25,7 +26,9 @@ const AppOption: React.FC<{
 
 const Index: NextPage = () => {
   const { theme } = useTheme();
+
   const [pictureTheme, setPictureTheme] = useState("light");
+  const [rememberAppType, setRememberAppType] = useState<CheckedState>(false);
 
   useEffect(() => setPictureTheme(theme!), [theme]);
 
@@ -51,7 +54,12 @@ const Index: NextPage = () => {
         />
       </div>
       <div className="mt-12">
-        <CheckboxWithText text="Remember my choice" />
+        <CheckboxWithText
+          id="rememberAppType"
+          text="Remember my choice"
+          checked={rememberAppType}
+          onCheckedChange={setRememberAppType}
+        />
       </div>
     </div>
   );
