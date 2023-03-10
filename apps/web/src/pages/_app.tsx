@@ -3,7 +3,6 @@ import "../styles/main.css";
 import { Inter as FontSans } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import Layout from "../layouts/main";
-import dynamic from "next/dynamic";
 import Head from "next/head";
 
 const fontSans = FontSans({
@@ -11,13 +10,6 @@ const fontSans = FontSans({
   variable: "--font-sans",
   display: "swap",
 });
-
-const ThemeToggle = dynamic(
-  () => import("../components/theme-toggle").then((ctx) => ctx.default),
-  {
-    ssr: false,
-  }
-);
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
@@ -39,8 +31,6 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
         <Layout>
           <Component {...pageProps} />
         </Layout>
-
-        <ThemeToggle />
       </ThemeProvider>
     </>
   );
