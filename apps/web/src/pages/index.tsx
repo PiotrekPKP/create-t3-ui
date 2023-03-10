@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { CheckboxWithText } from "../components/ui/checkbox";
 
 const IMAGE_SIZE = 80;
 
@@ -48,6 +49,9 @@ const Index: NextPage = () => {
           description="Clean and simple starter repo using the T3 Stack along with Expo React
           Native"
         />
+      </div>
+      <div className="mt-12">
+        <CheckboxWithText text="Remember my choice" />
       </div>
     </div>
   );
