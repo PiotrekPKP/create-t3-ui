@@ -1,10 +1,8 @@
-import { type CheckedState } from "@radix-ui/react-checkbox";
 import { type NextPage } from "next";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { CheckboxWithText } from "~/components/ui/checkbox";
 
 const IMAGE_SIZE = 80;
 
@@ -32,7 +30,6 @@ const Index: NextPage = () => {
   const { theme } = useTheme();
 
   const [pictureTheme, setPictureTheme] = useState("light");
-  const [rememberAppType, setRememberAppType] = useState<CheckedState>(false);
 
   useEffect(
     () => setPictureTheme(theme === "system" || !theme ? "light" : theme),
@@ -60,14 +57,6 @@ const Index: NextPage = () => {
           name="Create T3 Turbo"
           description="Clean and simple starter repo using the T3 Stack along with Expo React
           Native"
-        />
-      </div>
-      <div className="mt-12">
-        <CheckboxWithText
-          id="rememberAppType"
-          text="Remember my choice"
-          checked={rememberAppType}
-          onCheckedChange={setRememberAppType}
         />
       </div>
     </div>

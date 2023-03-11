@@ -15,6 +15,8 @@ export const projectRouter = createTRPCRouter({
         { cwd: getWorkingDir() }
       );
 
-      await execaCommand(`pnpm install`, { cwd: projectPath });
+      await execaCommand(`${input.packageManager} install`, {
+        cwd: projectPath,
+      });
     }),
 });

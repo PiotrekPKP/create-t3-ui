@@ -7,6 +7,15 @@ import { useRouter } from "next/router";
 import { InputWithText } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
 import { api, RouterInputs } from "~/utils/api";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "~/components/ui/select";
+import { Label } from "~/components/ui/label";
+import BackButton from "~/components/back-button";
 
 type FormData = RouterInputs["project"]["createTurbo"];
 
@@ -17,6 +26,10 @@ export const projectMetaSchema = z.object({
       message: "Name should only contain lowercase characters and dashes",
     })
     .min(1),
+  packageManager: z.enum(["pnpm"], {
+    invalid_type_error: "You can only use pnpm with Create T3 Turbo",
+    required_error: "Choose the package manager",
+  }),
 });
 
 const Index: NextPage = () => {
@@ -43,7 +56,7 @@ const Index: NextPage = () => {
     } catch (e) {}
   });
 
-  const projectName = watch("name");
+  const [projectName, packageManager] = watch(["name", "packageManager"]);
   const [projectPath, setProjectPath] = useState("");
   const [settingUp, setSettingUp] = useState(false);
 
@@ -84,6 +97,7 @@ const Index: NextPage = () => {
 
   return (
     <div>
+      <BackButton />
       <h1>Create T3 Turbo</h1>
       <p>
         There&apos;s not much configuration to do here. Just fill in the data,
@@ -105,6 +119,30 @@ const Index: NextPage = () => {
             inputProps={{ disabled: true, value: projectPath }}
             label="Path to your project"
           />
+
+          <div className="grid w-full max-w-sm items-center gap-3">
+            <Label>Package manager</Label>
+            <Select
+              value={packageManager}
+              onValueChange={(v) => setValue("packageManager", v as "pnpm")}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select package manager..." />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="pnpm">Pnpm</SelectItem>
+                <SelectItem disabled value="npm">
+                  Npm
+                </SelectItem>
+                <SelectItem disabled value="yarn">
+                  Yarn
+                </SelectItem>
+              </SelectContent>
+            </Select>
+            <p className="!mt-0 text-sm text-red-500">
+              {errors.packageManager?.message}
+            </p>
+          </div>
 
           <Button type="submit" className="mt-6">
             Create project
