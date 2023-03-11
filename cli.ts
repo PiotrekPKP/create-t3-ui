@@ -28,9 +28,7 @@ try {
     });
 
     server.on("error", (e) => rej(e));
-    server.on("close", () => {
-      console.log(PKG_ROOT);
-    });
+    server.on("close", () => res());
   });
 } catch (e) {
   serverSpinner.fail("Failed to launch UI!");
