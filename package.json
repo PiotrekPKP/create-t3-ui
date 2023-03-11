@@ -1,33 +1,60 @@
 {
   "name": "create-t3-ui",
-  "version": "0.1.5",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
+  "version": "0.1.6",
+  "type": "module",
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "cli": "turbo run build && node apps/cli/build/index.js"
+    "build": "npm run build:cli && next build",
+    "dev": "next dev",
+    "lint": "next lint",
+    "start": "next start",
+    "build:cli": "tsc cli.ts -t es2022 -m es2022 --moduleResolution node --outDir dist --allowSyntheticDefaultImports",
+    "cli": "node dist/cli.js"
   },
-  "bin": "apps/cli/build/index.js",
-  "devDependencies": {
-    "eslint-config-custom": "workspace:*",
-    "prettier": "latest",
-    "turbo": "latest"
-  },
-  "engines": {
-    "node": ">=14.0.0"
-  },
+  "bin": "dist/cli.js",
   "dependencies": {
+    "@hookform/resolvers": "^2.9.11",
+    "@radix-ui/react-checkbox": "^1.0.3",
+    "@radix-ui/react-label": "^2.0.1",
+    "@radix-ui/react-progress": "^1.0.2",
+    "@tanstack/react-query": "^4.20.2",
+    "@trpc/client": "^10.9.0",
+    "@trpc/next": "^10.9.0",
+    "@trpc/react-query": "^10.9.0",
+    "@trpc/server": "^10.9.0",
+    "class-variance-authority": "^0.4.0",
+    "clsx": "^1.2.1",
     "execa": "^7.0.0",
-    "fs-extra": "^11.1.0",
+    "lucide-react": "^0.124.0",
+    "next": "^13.2.1",
+    "next-themes": "^0.2.1",
+    "open": "^8.4.2",
     "ora": "^6.1.2",
-    "portfinder": "^1.0.32",
-    "puppeteer": "^19.7.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.5",
+    "superjson": "1.9.1",
+    "tailwind-merge": "^1.10.0",
+    "tailwindcss-animate": "^1.0.5",
     "zod": "^3.21.4"
   },
-  "packageManager": "pnpm@7.27.1"
+  "devDependencies": {
+    "@types/eslint": "^8.21.1",
+    "@types/node": "^18.14.0",
+    "@types/prettier": "^2.7.2",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/parser": "^5.53.0",
+    "autoprefixer": "^10.4.7",
+    "eslint": "^8.34.0",
+    "eslint-config-next": "^13.2.1",
+    "postcss": "^8.4.14",
+    "prettier": "^2.8.1",
+    "prettier-plugin-tailwindcss": "^0.2.1",
+    "tailwindcss": "^3.2.0",
+    "typescript": "^4.9.5"
+  },
+  "ct3aMetadata": {
+    "initVersion": "7.7.0"
+  }
 }
