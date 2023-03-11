@@ -11,6 +11,7 @@ try {
   await new Promise<void>(async (res, rej) => {
     server.stdout?.on("data", async (data: Buffer) => {
       const str = data.toString();
+      console.log(str);
 
       if (str.includes("ready - started server")) {
         const pageUrl = str.split("url: ").pop()?.trim() ?? "";
