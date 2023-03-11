@@ -110,7 +110,7 @@ const Index: NextPage = () => {
           onSubmit={onSubmit}
         >
           <InputWithText
-            inputProps={register("name")}
+            inputProps={{ ...register("name"), placeholder: "Project name..." }}
             label="Project name"
             error={errors.name?.message}
           />

@@ -11,7 +11,7 @@ const ThemeToggle = dynamic(
 const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <>
-      <div className="mx-12 mt-24 mb-12 md:mx-24 md:mt-48">{children}</div>
+      <div className="mx-12 mt-24 mb-12 md:mx-24 md:mt-36">{children}</div>
       <ThemeToggle />
     </>
   );
