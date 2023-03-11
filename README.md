@@ -2,7 +2,7 @@
 
 Simple to use UI for initializing your T3 app.
 
-**ONLY CREATE T3 TURBO WITH PNPM IS WORKING FOR NOW**
+**!!! RIGHT NOW ONLY CREATE T3 TURBO IS WORKING !!!**
 
 ![Screenshot](https://raw.githubusercontent.com/PiotrekPKP/create-t3-ui/main/.github/assets/screenshot.png)
 
