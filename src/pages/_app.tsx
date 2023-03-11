@@ -4,17 +4,13 @@ import { Inter as FontSans } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import Head from "next/head";
 import Layout from "~/layouts/main";
+import { api } from "~/utils/api";
 
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 });
-
-export enum AppType {
-  APP = "APP",
-  TURBO = "TURBO",
-}
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
@@ -41,4 +37,4 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   );
 };
 
-export default App;
+export default api.withTRPC(App);
