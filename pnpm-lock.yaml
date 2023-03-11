@@ -5,8 +5,13 @@ importers:
   .:
     specifiers:
       eslint-config-custom: workspace:*
+      execa: ^7.0.0
+      ora: ^6.1.2
       prettier: latest
       turbo: latest
+    dependencies:
+      execa: 7.0.0
+      ora: 6.1.2
     devDependencies:
       eslint-config-custom: link:packages/eslint-config-custom
       prettier: 2.8.4
