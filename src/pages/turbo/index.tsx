@@ -8,7 +8,7 @@ import { InputWithText } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
 import { api, RouterInputs } from "~/utils/api";
 
-type FormData = RouterInputs["project"]["create"];
+type FormData = RouterInputs["project"]["createTurbo"];
 
 export const projectMetaSchema = z.object({
   name: z
@@ -21,7 +21,7 @@ export const projectMetaSchema = z.object({
 
 const Index: NextPage = () => {
   const { data } = api.metadata.getCurrentDirectory.useQuery();
-  const { mutateAsync } = api.project.create.useMutation();
+  const { mutateAsync } = api.project.createTurbo.useMutation();
 
   const {
     register,

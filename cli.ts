@@ -12,7 +12,10 @@ const PKG_ROOT = path.join(distPath, "../");
 const serverSpinner = ora("Launching UI...").start();
 
 try {
-  const server = execaCommand("npm start", { cwd: PKG_ROOT });
+  const server = execaCommand("npm start", {
+    cwd: PKG_ROOT,
+    env: { NODE_ENV: process.env.NODE_ENV, USER_DIR: process.cwd() },
+  });
 
   await new Promise<void>((res, rej) => {
     server.stdout?.on("data", async (data: Buffer) => {
