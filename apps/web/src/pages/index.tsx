@@ -37,8 +37,8 @@ const Index: NextPage = () => {
       <h1>Choose your preferred template</h1>
       <p>
         Pick the option you want. If you want to build a web app, go with Create
-        T3 App. However, if you'd like to have both web and mobile apps - pick
-        the Create T3 Turbo option.
+        T3 App. However, if you&apos;d like to have both web and mobile apps -
+        pick the Create T3 Turbo option.
       </p>
       <div className="mt-12 flex flex-col gap-6 md:grid md:grid-rows-2">
         <AppOption

@@ -12,6 +12,16 @@ importers:
       prettier: 2.8.4
       turbo: 1.8.3
 
+  apps/cli:
+    specifiers:
+      '@types/node': ^17.0.12
+      tsconfig: workspace:*
+      typescript: ^4.9.5
+    devDependencies:
+      '@types/node': 17.0.45
+      tsconfig: link:../../packages/tsconfig
+      typescript: 4.9.5
+
   apps/web:
     specifiers:
       '@babel/core': ^7.0.0
