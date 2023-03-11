@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { InputWithText } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
-import { api, RouterInputs } from "~/utils/api";
+import { api, type RouterInputs } from "~/utils/api";
 import {
   Select,
   SelectContent,
@@ -22,6 +22,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
+import { type PackageManager } from "~/utils/get-user-data";
 
 type FormData = RouterInputs["project"]["createTurbo"];
 
@@ -40,7 +41,6 @@ export const projectMetaSchema = z.object({
 
 const Index: NextPage = () => {
   const { data } = api.metadata.getCurrentDirectory.useQuery();
-  const { mutateAsync } = api.project.createTurbo.useMutation();
 
   const {
     register,
@@ -59,15 +59,13 @@ const Index: NextPage = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      setSettingUp(true);
-      await mutateAsync(data);
-      await router.push("/done");
+      localStorage.setItem("__CREATE_T3_UI_TURBO_DATA__", JSON.stringify(data));
+      await router.push("/turbo/templates");
     } catch (e) {}
   });
 
   const [projectName, packageManager] = watch(["name", "packageManager"]);
   const [projectPath, setProjectPath] = useState("");
-  const [settingUp, setSettingUp] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -77,7 +75,7 @@ const Index: NextPage = () => {
       }${projectName}`;
       setProjectPath(projectPath);
     }
-  }, [projectPath, projectName, setValue]);
+  }, [projectPath, projectName, setValue, data]);
 
   useEffect(() => {
     if (data) {
@@ -85,32 +83,29 @@ const Index: NextPage = () => {
     }
   }, [data]);
 
-  if (settingUp) {
-    return (
-      <>
-        <div>
-          <h1>Setting up your project...</h1>
-          <p>Wait for everything to finish...</p>
-          <div className="mt-12">
-            <div>Loading...</div>
-          </div>
-        </div>
-        {!!data && (
-          <div id="doneDataElement" className="hidden">
-            {data}
-          </div>
-        )}
-      </>
-    );
-  }
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const data = localStorage.getItem("__CREATE_T3_UI_TURBO_DATA__");
+      if (data) {
+        setValue(
+          "name",
+          (
+            JSON.parse(data) as
+              | { name: string; packageManager: PackageManager }
+              | undefined
+          )?.["name"] || ""
+        );
+      }
+    }
+  }, [setValue]);
 
   return (
     <div>
       <BackButton />
       <h1>Create T3 Turbo</h1>
       <p>
-        There&apos;s not much configuration to do here. Just fill in the data,
-        click the create button and wait for your project!
+        There&apos;s not much configuration to do here. Just fill in the data
+        and click the next button!
       </p>
 
       <div className="mt-12">
@@ -182,7 +177,7 @@ const Index: NextPage = () => {
           </div>
 
           <Button type="submit" className="mt-6">
-            Create project
+            Next
           </Button>
         </form>
       </div>

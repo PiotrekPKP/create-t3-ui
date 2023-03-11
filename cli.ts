@@ -14,7 +14,7 @@ const serverSpinner = ora("Launching UI...").start();
 try {
   const server = execaCommand("npm start", {
     cwd: PKG_ROOT,
-    env: { NODE_ENV: process.env.NODE_ENV, USER_DIR: process.cwd() },
+    env: { NODE_ENV: process.env.NODE_ENV, USER_DIR: process.cwd(), PKG_ROOT },
   });
 
   await new Promise<void>((res, rej) => {

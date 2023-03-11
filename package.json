@@ -2,7 +2,7 @@
   "name": "create-t3-ui",
   "description": "Simple to use UI for initializing your T3 app",
   "license": "MIT",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "type": "module",
   "repository": {
     "type": "git",
@@ -41,6 +41,7 @@
     "class-variance-authority": "^0.4.0",
     "clsx": "^1.2.1",
     "execa": "^7.0.0",
+    "fs-extra": "^11.1.0",
     "lucide-react": "^0.124.0",
     "next": "^13.2.1",
     "next-themes": "^0.2.1",
@@ -56,6 +57,7 @@
   },
   "devDependencies": {
     "@types/eslint": "^8.21.1",
+    "@types/fs-extra": "^11.0.1",
     "@types/node": "^18.14.0",
     "@types/prettier": "^2.7.2",
     "@types/react": "^18.0.28",
