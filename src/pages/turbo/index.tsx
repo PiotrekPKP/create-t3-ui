@@ -16,6 +16,12 @@ import {
 } from "~/components/ui/select";
 import { Label } from "~/components/ui/label";
 import BackButton from "~/components/back-button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "~/components/ui/tooltip";
 
 type FormData = RouterInputs["project"]["createTurbo"];
 
@@ -44,6 +50,9 @@ const Index: NextPage = () => {
     setValue,
   } = useForm<FormData>({
     resolver: zodResolver(projectMetaSchema),
+    defaultValues: {
+      packageManager: "pnpm",
+    },
   });
 
   const router = useRouter();
@@ -121,7 +130,20 @@ const Index: NextPage = () => {
           />
 
           <div className="grid w-full max-w-sm items-center gap-3">
-            <Label>Package manager</Label>
+            <Label>
+              Package manager{" "}
+              <TooltipProvider delayDuration={0}>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <span className="text-gray-500">(?)</span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    As Create T3 Turbo utilizes workspaces, pnpm has to be the
+                    package manager.
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </Label>
             <Select
               value={packageManager}
               onValueChange={(v) => setValue("packageManager", v as "pnpm")}
