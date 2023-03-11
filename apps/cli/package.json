@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc"
   },
+  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -13,5 +14,9 @@
     "@types/node": "^17.0.12",
     "tsconfig": "workspace:*",
     "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "execa": "^7.0.0",
+    "ora": "^6.1.2"
   }
 }

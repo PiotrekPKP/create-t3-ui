@@ -3,6 +3,8 @@
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"],
   "compilerOptions": {
-    "outDir": "build"
+    "outDir": "build",
+    "target": "esnext",
+    "module": "esnext"
   }
 }
