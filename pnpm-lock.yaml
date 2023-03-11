@@ -12,12 +12,14 @@ importers:
       prettier: latest
       puppeteer: ^19.7.4
       turbo: latest
+      zod: ^3.21.4
     dependencies:
       execa: 7.0.0
       fs-extra: 11.1.0
       ora: 6.1.2
       portfinder: 1.0.32
       puppeteer: 19.7.4
+      zod: 3.21.4
     devDependencies:
       eslint-config-custom: link:packages/eslint-config-custom
       prettier: 2.8.4
@@ -34,12 +36,14 @@ importers:
       puppeteer: ^19.7.4
       tsconfig: workspace:*
       typescript: ^4.9.5
+      zod: ^3.21.4
     dependencies:
       execa: 7.0.0
       fs-extra: 11.1.0
       ora: 6.1.2
       portfinder: 1.0.32
       puppeteer: 19.7.4_typescript@4.9.5
+      zod: 3.21.4
     devDependencies:
       '@types/fs-extra': 11.0.1
       '@types/node': 17.0.45
@@ -49,14 +53,16 @@ importers:
   apps/web:
     specifiers:
       '@babel/core': ^7.0.0
+      '@hookform/resolvers': ^2.9.11
       '@radix-ui/react-checkbox': ^1.0.3
+      '@radix-ui/react-label': ^2.0.1
+      '@radix-ui/react-progress': ^1.0.2
       '@types/node': ^17.0.12
       '@types/react': ^18.0.22
       '@types/react-dom': ^18.0.7
       autoprefixer: ^10.4.14
       class-variance-authority: ^0.4.0
       clsx: ^1.2.1
-      config: workspace:*
       eslint: 7.32.0
       eslint-config-custom: workspace:*
       lucide-react: ^0.124.0
@@ -67,23 +73,29 @@ importers:
       prettier-plugin-tailwindcss: ^0.2.4
       react: 18.2.0
       react-dom: 18.2.0
+      react-hook-form: ^7.43.5
       tailwind-merge: ^1.10.0
       tailwindcss: ^3.2.7
       tailwindcss-animate: ^1.0.5
       tsconfig: workspace:*
       typescript: ^4.5.3
+      zod: ^3.21.4
     dependencies:
+      '@hookform/resolvers': 2.9.11_react-hook-form@7.43.5
       '@radix-ui/react-checkbox': 1.0.3_biqbaboplfbrettd7655fr4n2y
+      '@radix-ui/react-label': 2.0.1_biqbaboplfbrettd7655fr4n2y
+      '@radix-ui/react-progress': 1.0.2_biqbaboplfbrettd7655fr4n2y
       class-variance-authority: 0.4.0_typescript@4.9.5
       clsx: 1.2.1
-      config: link:../../packages/config
       lucide-react: 0.124.0_react@18.2.0
       next: 13.2.4_6m24vuloj5ihw4zc5lbsktc4fu
       next-themes: 0.2.1_ld2jel3hspngo3u5lti2kgl2sq
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+      react-hook-form: 7.43.5_react@18.2.0
       tailwind-merge: 1.10.0
       tailwindcss-animate: 1.0.5_tailwindcss@3.2.7
+      zod: 3.21.4
     devDependencies:
       '@babel/core': 7.21.0
       '@types/node': 17.0.45
@@ -97,12 +109,6 @@ importers:
       prettier-plugin-tailwindcss: 0.2.4_prettier@2.8.4
       tailwindcss: 3.2.7_postcss@8.4.21
       tsconfig: link:../../packages/tsconfig
-      typescript: 4.9.5
-
-  packages/config:
-    specifiers:
-      typescript: ^4.7.4
-    devDependencies:
       typescript: 4.9.5
 
   packages/eslint-config-custom:
@@ -335,6 +341,14 @@ packages:
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - supports-color
+
+  /@hookform/resolvers/2.9.11_react-hook-form@7.43.5:
+    resolution: {integrity: sha512-bA3aZ79UgcHj7tFV7RlgThzwSSHZgvfbt2wprldRkYBcMopdMvHyO17Wwp/twcJasNFischFfS7oz8Katz8DdQ==}
+    peerDependencies:
+      react-hook-form: ^7.0.0
+    dependencies:
+      react-hook-form: 7.43.5_react@18.2.0
+    dev: false
 
   /@humanwhocodes/config-array/0.5.0:
     resolution: {integrity: sha512-FagtKFz74XrTl7y6HCzQpwDfXP0yhxe9lHLD1UZxjvZIcbyRz8zTFF/yYNfSfzU414eDwZ1SrO0Qvtyf+wFMQg==}
@@ -569,6 +583,18 @@ packages:
       react: 18.2.0
     dev: false
 
+  /@radix-ui/react-label/2.0.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-qcfbS3B8hTYmEO44RNcXB6pegkxRsJIbdxTMu0PEX0Luv5O2DvTIwwVYxQfUwLpM88EL84QRPLOLgwUSApMsLQ==}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    dependencies:
+      '@babel/runtime': 7.21.0
+      '@radix-ui/react-primitive': 1.0.2_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
   /@radix-ui/react-presence/1.0.0_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-A+6XEvN01NfVWiKu38ybawfHsBjWum42MRPnEuqPsBZ4eV7e/7K321B5VgYMPv3Xx5An6o1/l9ZuDBgmcmWK3w==}
     peerDependencies:
@@ -590,6 +616,19 @@ packages:
     dependencies:
       '@babel/runtime': 7.21.0
       '@radix-ui/react-slot': 1.0.1_react@18.2.0
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /@radix-ui/react-progress/1.0.2_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-c16RVM43ct2koRcMmPw4b47JWFNs89qe5p4Um9dwoPs0yi+d7It1MJ35EpsX+93o31Mqdwe4vQyu0SrHrygdCg==}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    dependencies:
+      '@babel/runtime': 7.21.0
+      '@radix-ui/react-context': 1.0.0_react@18.2.0
+      '@radix-ui/react-primitive': 1.0.2_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     dev: false
@@ -2997,6 +3036,15 @@ packages:
       scheduler: 0.23.0
     dev: false
 
+  /react-hook-form/7.43.5_react@18.2.0:
+    resolution: {integrity: sha512-YcaXhuFHoOPipu5pC7ckxrLrialiOcU91pKu8P+isAcXZyMgByUK9PkI9j5fENO4+6XU5PwWXRGMIFlk9u9UBQ==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
+    dev: false
+
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
     dev: false
@@ -3626,4 +3674,8 @@ packages:
     dependencies:
       buffer-crc32: 0.2.13
       fd-slicer: 1.1.0
+    dev: false
+
+  /zod/3.21.4:
+    resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
     dev: false

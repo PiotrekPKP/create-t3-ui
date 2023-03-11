@@ -11,6 +11,11 @@ const fontSans = FontSans({
   display: "swap",
 });
 
+export enum Apptype {
+  APP = "APP",
+  TURBO = "TURBO",
+}
+
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <>

@@ -2,6 +2,7 @@ import { CheckedState } from "@radix-ui/react-checkbox";
 import { NextPage } from "next";
 import { useTheme } from "next-themes";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CheckboxWithText } from "../components/ui/checkbox";
 
@@ -11,16 +12,19 @@ const AppOption: React.FC<{
   image: string;
   name: string;
   description: string;
-}> = ({ image, name, description }) => {
+  to: string;
+}> = ({ image, name, description, to }) => {
   return (
-    <div className="flex cursor-pointer flex-col items-start gap-6 rounded-md bg-black/5 p-8 transition-colors hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 md:flex-row md:items-center md:gap-12">
-      <Image alt="" src={image} width={IMAGE_SIZE} height={IMAGE_SIZE} />
+    <Link href={to}>
+      <div className="flex cursor-pointer flex-col items-start gap-6 rounded-md bg-black/5 p-8 transition-colors hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 md:flex-row md:items-center md:gap-12">
+        <Image alt="" src={image} width={IMAGE_SIZE} height={IMAGE_SIZE} />
 
-      <div>
-        <h3 className="my-0 font-black">{name}</h3>
-        <p className="!mt-2">{description}</p>
+        <div>
+          <h3 className="my-0 font-black">{name}</h3>
+          <p className="!mt-2">{description}</p>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
@@ -30,7 +34,10 @@ const Index: NextPage = () => {
   const [pictureTheme, setPictureTheme] = useState("light");
   const [rememberAppType, setRememberAppType] = useState<CheckedState>(false);
 
-  useEffect(() => setPictureTheme(theme!), [theme]);
+  useEffect(
+    () => setPictureTheme(theme === "system" ? "light" : theme!),
+    [theme]
+  );
 
   return (
     <div>
@@ -42,11 +49,13 @@ const Index: NextPage = () => {
       </p>
       <div className="mt-12 flex flex-col gap-6 md:grid md:grid-rows-2">
         <AppOption
+          to="/app"
           image={`/assets/icons/app-${pictureTheme}.svg`}
           name="Create T3 App"
           description="The best way to start a full-stack, typesafe Next.js app"
         />
         <AppOption
+          to="/turbo"
           image={`/assets/icons/turbo.svg`}
           name="Create T3 Turbo"
           description="Clean and simple starter repo using the T3 Stack along with Expo React
