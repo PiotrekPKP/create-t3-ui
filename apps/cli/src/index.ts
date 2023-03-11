@@ -1,27 +1,47 @@
 #! /usr/bin/env node
-import { execa } from "execa";
+import puppeteer from "puppeteer";
 import ora from "ora";
+import { PKG_ROOT } from "./consts.js";
+import path from "path";
+import fs from "fs-extra";
+import os from "os";
+import { execa } from "execa";
+import portfinder from "portfinder";
 
-const CWD = `${process.cwd()}/apps/web`;
+const commandSpinner = ora("Starting the UI...").start();
 
 try {
-  const command = execa("npm", ["start"], { cwd: CWD });
+  const webCloneDir = path.join(os.tmpdir(), "t3-ui/web");
+  const webDir = path.join(PKG_ROOT, "../web/out");
 
-  const commandSpinner = ora("Starting the UI...").start();
+  fs.copySync(webDir, webCloneDir);
+
+  const port = await portfinder.getPortPromise();
+
+  const serveCommand = execa("npx", ["http-server", `--port=${port}`], {
+    cwd: webCloneDir,
+  });
 
   await new Promise<void>((res, rej) => {
-    command.stdout?.on("data", (data: Buffer) => {
+    serveCommand.stdout?.on("data", async (data: Buffer) => {
       const str = data.toString();
 
-      if (str.includes("ready - started")) {
+      if (str.includes("Available on:")) {
+        const browser = await puppeteer.launch({
+          headless: false,
+          defaultViewport: null,
+          args: ["--start-maximized"],
+          ignoreDefaultArgs: ["--enable-automation"],
+        });
+        const page = await browser.newPage();
+
+        await page.goto(`http://localhost:${port}`);
         commandSpinner.succeed("UI started!");
       }
     });
-    command.on("error", (e) => rej(e));
-    command.on("close", () => res());
   });
 } catch (e) {
-  console.log("Could not run the UI...", e);
+  commandSpinner.fail("Could not start the UI!");
 }
 
 export {};
