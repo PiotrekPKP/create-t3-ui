@@ -21,7 +21,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 Input.displayName = "Input";
 
 const InputWithText: React.FC<{
-  label: string;
+  label: React.ReactNode;
   inputProps: InputProps;
   error?: string;
 }> = ({ label, inputProps, error }) => {

@@ -126,7 +126,22 @@ const Index: NextPage = () => {
 
           <InputWithText
             inputProps={{ disabled: true, value: projectPath }}
-            label="Path to your project"
+            label={
+              <>
+                Path to your project{" "}
+                <TooltipProvider delayDuration={0}>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <span className="text-gray-500">(?)</span>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      This feature is not yet implemented. Run the tool inside
+                      the directory you want to create the project in.
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </>
+            }
           />
 
           <div className="grid w-full max-w-sm items-center gap-3">
