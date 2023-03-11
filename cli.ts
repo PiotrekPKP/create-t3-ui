@@ -1,17 +1,22 @@
 #! /usr/bin/env node
-import { execa } from "execa";
+import { execa, execaCommand } from "execa";
 import open from "open";
 import ora from "ora";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const distPath = path.dirname(__filename);
+const PKG_ROOT = path.join(distPath, "../");
 
 const serverSpinner = ora("Launching UI...").start();
 
 try {
-  const server = execa("npm", ["start"]);
+  const server = execaCommand("npm start", { cwd: PKG_ROOT });
 
-  await new Promise<void>(async (res, rej) => {
+  await new Promise<void>((res, rej) => {
     server.stdout?.on("data", async (data: Buffer) => {
       const str = data.toString();
-      console.log(str);
 
       if (str.includes("ready - started server")) {
         const pageUrl = str.split("url: ").pop()?.trim() ?? "";
@@ -20,6 +25,11 @@ try {
 
         serverSpinner.succeed("UI has been launched!");
       }
+    });
+
+    server.on("error", (e) => rej(e));
+    server.on("close", () => {
+      console.log(PKG_ROOT);
     });
   });
 } catch (e) {
