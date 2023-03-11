@@ -23,7 +23,10 @@
   },
   "dependencies": {
     "execa": "^7.0.0",
-    "ora": "^6.1.2"
+    "fs-extra": "^11.1.0",
+    "ora": "^6.1.2",
+    "portfinder": "^1.0.32",
+    "puppeteer": "^19.7.4"
   },
   "packageManager": "pnpm@7.27.1"
 }
