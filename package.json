@@ -77,6 +77,7 @@
   "files": [
     "dist",
     ".next",
-    "public"
+    "public",
+    "templates"
   ]
 }
