@@ -6,7 +6,7 @@ Simple to use UI for initializing your T3 app.
 
 ## Usage
 
-To run the tool, use `npx t3-ui` command.
+To run the tool, use `npx create-t3-ui@latest` command.
 
 ## Developement
 
