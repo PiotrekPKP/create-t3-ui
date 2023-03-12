@@ -12,4 +12,10 @@ To run the tool, use `npx create-t3-ui@latest` command.
 
 ## Developement
 
+### CLI
+
 To run the tool in dev, use `npm run build && npm run cli` command.
+
+### Web application
+
+To run the web app in dev, use `npm run dev` command.
