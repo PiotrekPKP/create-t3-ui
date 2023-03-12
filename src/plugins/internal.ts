@@ -18,6 +18,11 @@ export const turboChromeExtensionPlugin = createPlugin(() => ({
       to: "NEXT_PUBLIC_EXTENSION_ID: z.string(),",
     },
     {
+      file: "apps/nextjs/src/env.mjs",
+      from: "// NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,",
+      to: "NEXT_PUBLIC_EXTENSION_ID: process.env.NEXT_PUBLIC_EXTENSION_ID,",
+    },
+    {
       file: "pnpm-workspace.yaml",
       from: "apps/expo",
       to: "apps/expo\n  - apps/chrome",
