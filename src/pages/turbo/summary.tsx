@@ -27,12 +27,11 @@ const Summary: NextPage = () => {
   const createProject = async () => {
     setSettingUp(true);
 
-    await new Promise((r) => setTimeout(r, 5000));
-    // await mutateAsync({
-    //   name: turboState.name || "",
-    //   packageManager: turboState.packageManager || "pnpm",
-    //   additionalTemplates: turboState.additionalTemplates || [],
-    // });
+    await mutateAsync({
+      name: turboState.name || "",
+      packageManager: turboState.packageManager || "pnpm",
+      additionalTemplates: turboState.additionalTemplates || [],
+    });
 
     await router.push("/done");
   };
