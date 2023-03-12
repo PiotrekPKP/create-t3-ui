@@ -1,7 +1,9 @@
 import { create } from "zustand";
-import { type TurboActivePlugins } from "~/plugins/public";
+import { AppActivePlugins, type TurboActivePlugins } from "~/plugins/public";
+import { PackageManager } from "./get-user-data";
 
-type AdditionalTemplate = "chrome";
+type AdditionalTemplateTurbo = "chrome";
+
 type TurboPlugin = {
   pluginId: TurboActivePlugins;
   data: unknown;
@@ -10,7 +12,7 @@ type TurboPlugin = {
 interface TurboState {
   name?: string;
   packageManager?: "pnpm";
-  additionalTemplates?: AdditionalTemplate[];
+  additionalTemplates?: AdditionalTemplateTurbo[];
   plugins?: TurboPlugin[];
 }
 
@@ -35,9 +37,6 @@ interface TurboAction {
 }
 
 export const useTurboState = create<TurboState & TurboAction>((set) => ({
-  name: undefined,
-  packageManager: undefined,
-  additionalTemplates: undefined,
   setName: (name) => set({ name }),
   setPackageManager: (packageManager) => set({ packageManager }),
   addToAdditionalTemplates: (additionalTemplate) =>
@@ -68,6 +67,67 @@ export const useTurboState = create<TurboState & TurboAction>((set) => ({
       name: undefined,
       packageManager: undefined,
       additionalTemplates: undefined,
+      plugins: undefined,
+    }),
+}));
+
+type AppPlugin = {
+  pluginId: AppActivePlugins;
+  data: unknown;
+};
+
+interface AppState {
+  name?: string;
+  packageManager?: PackageManager;
+  extensions?: ("trpc" | "prisma" | "nextAuth" | "tailwind")[];
+  plugins?: AppPlugin[];
+}
+
+interface AppAction {
+  setName: (name: AppState["name"]) => void;
+  setPackageManager: (packageManager: AppState["packageManager"]) => void;
+  addToExtensions: (
+    extension: NonNullable<AppState["extensions"]>[number]
+  ) => void;
+  removeFromExtensions: (
+    extension: NonNullable<AppState["extensions"]>[number]
+  ) => void;
+  addToPlugins: (
+    additionalTemplate: NonNullable<AppState["plugins"]>[number]
+  ) => void;
+  removeFromPlugins: (
+    additionalTemplate: NonNullable<AppState["plugins"]>[number]["pluginId"]
+  ) => void;
+  initializePlugins: () => void;
+  initializeExtensions: () => void;
+  clearStore: () => void;
+}
+
+export const useAppState = create<AppState & AppAction>((set) => ({
+  setName: (name) => set({ name }),
+  setPackageManager: (packageManager) => set({ packageManager }),
+  addToExtensions: (ext) =>
+    set((state) => ({
+      extensions: [...(state.extensions || []), ext],
+    })),
+  removeFromExtensions: (ext) =>
+    set((state) => ({
+      extensions: (state.extensions || []).filter((e) => e !== ext),
+    })),
+  addToPlugins: (plugin) =>
+    set((state) => ({
+      plugins: [...(state.plugins || []), plugin],
+    })),
+  removeFromPlugins: (plugin) =>
+    set((state) => ({
+      plugins: (state.plugins || []).filter((p) => p.pluginId !== plugin),
+    })),
+  initializePlugins: () => set({ plugins: [] }),
+  initializeExtensions: () => set({ extensions: [] }),
+  clearStore: () =>
+    set({
+      name: undefined,
+      packageManager: undefined,
       plugins: undefined,
     }),
 }));

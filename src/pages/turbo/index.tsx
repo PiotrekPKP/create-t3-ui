@@ -24,7 +24,7 @@ import {
 } from "~/components/ui/tooltip";
 import { useTurboState } from "~/utils/zustand";
 
-export const projectMetaSchema = z.object({
+export const projectMetaSchemaTurbo = z.object({
   name: z
     .string()
     .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, {
@@ -48,8 +48,8 @@ const Index: NextPage = () => {
     watch,
     formState: { errors },
     setValue,
-  } = useForm<z.infer<typeof projectMetaSchema>>({
-    resolver: zodResolver(projectMetaSchema),
+  } = useForm<z.infer<typeof projectMetaSchemaTurbo>>({
+    resolver: zodResolver(projectMetaSchemaTurbo),
     defaultValues: {
       packageManager: "pnpm",
       name: turboState.name,
