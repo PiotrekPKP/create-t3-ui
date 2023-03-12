@@ -1,7 +1,7 @@
 import { type CheckedState } from "@radix-ui/react-checkbox";
 import { type NextPage } from "next";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import BackButton from "~/components/back-button";
 import { Button } from "~/components/ui/button";
 import { Checkbox } from "~/components/ui/checkbox";
@@ -11,7 +11,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
-import { api, type RouterInputs } from "~/utils/api";
 import { cn } from "~/utils/cn";
 import { useTurboState } from "~/utils/zustand";
 
@@ -77,7 +76,7 @@ const Templates: NextPage = () => {
     if (!turboState.name || !turboState.packageManager) {
       router.push("/turbo");
     }
-  }, [turboState]);
+  }, [turboState, router]);
 
   return (
     <div>

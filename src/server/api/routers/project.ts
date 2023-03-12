@@ -4,7 +4,7 @@ import path from "path";
 import { execaCommand } from "execa";
 import { getWorkingDir } from "~/utils/get-user-data";
 import { z } from "zod";
-import fs from "fs-extra";
+import { turboChromeExtensionPlugin } from "~/plugins/internal";
 
 export const projectRouter = createTRPCRouter({
   createTurbo: publicProcedure
@@ -21,16 +21,9 @@ export const projectRouter = createTRPCRouter({
         { cwd: getWorkingDir() }
       );
 
-      Array.from(new Set(input.additionalTemplates)).forEach(
-        (additionalTemplate) => {
-          fs.copySync(
-            `${
-              process.env.PKG_ROOT || ""
-            }templates/turbo/${additionalTemplate}`,
-            `${projectPath}/apps/${additionalTemplate}`
-          );
-        }
-      );
+      if (input.additionalTemplates.includes("chrome")) {
+        turboChromeExtensionPlugin(input.name, {}).apply();
+      }
 
       await execaCommand(`${input.packageManager} install`, {
         cwd: projectPath,

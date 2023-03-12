@@ -8,7 +8,7 @@ import { useTurboState } from "~/utils/zustand";
 const Done: NextPage = () => {
   const { clearStore } = useTurboState();
 
-  useEffect(() => clearStore(), []);
+  useEffect(() => clearStore(), [clearStore]);
 
   return (
     <div>

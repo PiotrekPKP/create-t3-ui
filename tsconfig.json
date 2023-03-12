@@ -30,5 +30,5 @@
     "**/*.mjs",
     "cli.ts"
   ],
-  "exclude": ["node_modules", "templates"]
+  "exclude": ["node_modules", "plugins"]
 }

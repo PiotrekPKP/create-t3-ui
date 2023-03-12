@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { InputWithText } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
-import { api, type RouterInputs } from "~/utils/api";
+import { api } from "~/utils/api";
 import {
   Select,
   SelectContent,
@@ -23,8 +23,6 @@ import {
   TooltipTrigger,
 } from "~/components/ui/tooltip";
 import { useTurboState } from "~/utils/zustand";
-
-type FormData = RouterInputs["project"]["createTurbo"];
 
 export const projectMetaSchema = z.object({
   name: z

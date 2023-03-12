@@ -1,4 +1,6 @@
-export const getWorkingDir = () => process.env.USER_DIR || process.cwd();
+import { env } from "~/env.mjs";
+
+export const getWorkingDir = () => env.USER_DIR;
 
 export type PackageManager = "npm" | "pnpm" | "yarn";
 

@@ -81,6 +81,6 @@
     "dist",
     ".next",
     "public",
-    "templates"
+    "plugins"
   ]
 }

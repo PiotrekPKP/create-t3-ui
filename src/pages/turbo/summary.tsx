@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import { type NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Button } from "~/components/ui/button";
@@ -22,7 +22,7 @@ const Summary: NextPage = () => {
     ) {
       router.push("/turbo");
     }
-  }, [turboState]);
+  }, [turboState, router]);
 
   const createProject = async () => {
     setSettingUp(true);
