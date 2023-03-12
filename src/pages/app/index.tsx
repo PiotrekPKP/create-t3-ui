@@ -22,7 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
-import { PackageManager } from "~/utils/get-user-data";
+import { type PackageManager } from "~/utils/get-user-data";
 import { Button } from "~/components/ui/button";
 
 export const projectMetaSchemaApp = z.object({

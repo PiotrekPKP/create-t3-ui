@@ -5,8 +5,8 @@ import BackButton from "~/components/back-button";
 import { Button } from "~/components/ui/button";
 import { Label } from "~/components/ui/label";
 import { api } from "~/utils/api";
-import { PackageManager } from "~/utils/get-user-data";
-import { useAppState, useTurboState } from "~/utils/zustand";
+import { type PackageManager } from "~/utils/get-user-data";
+import { useAppState } from "~/utils/zustand";
 
 const Summary: NextPage = () => {
   const appState = useAppState();

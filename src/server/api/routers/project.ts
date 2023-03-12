@@ -68,13 +68,13 @@ export const projectRouter = createTRPCRouter({
       switch (input.packageManager) {
         case "npm":
           await execaCommand(
-            `npm create t3-app@latest --CI ${flags} ${projectPath}`,
+            `npx create-t3-app@latest --CI ${flags} ${projectPath}`,
             { cwd: getWorkingDir() }
           );
           break;
         case "pnpm":
           await execaCommand(
-            `pnpm create t3-app@latest --CI ${flags} ${projectPath}`,
+            `pnpx create-t3-app@latest --CI ${flags} ${projectPath}`,
             { cwd: getWorkingDir() }
           );
           break;

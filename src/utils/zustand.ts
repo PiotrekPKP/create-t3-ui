@@ -1,6 +1,9 @@
 import { create } from "zustand";
-import { AppActivePlugins, type TurboActivePlugins } from "~/plugins/public";
-import { PackageManager } from "./get-user-data";
+import {
+  type AppActivePlugins,
+  type TurboActivePlugins,
+} from "~/plugins/public";
+import { type PackageManager } from "./get-user-data";
 
 type AdditionalTemplateTurbo = "chrome";
 

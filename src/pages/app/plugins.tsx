@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import BackButton from "~/components/back-button";
 import { Button } from "~/components/ui/button";
 import { Checkbox } from "~/components/ui/checkbox";
-import { AppActivePlugins, type TurboActivePlugins } from "~/plugins/public";
+import { type AppActivePlugins } from "~/plugins/public";
 import { api } from "~/utils/api";
 import { useAppState } from "~/utils/zustand";
 
