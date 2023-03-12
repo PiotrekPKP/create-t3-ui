@@ -5,7 +5,7 @@ export const turboChromeExtensionPlugin = createPlugin(() => ({
   name: "Chrome Extension with Plasmo",
   description: "Adds Chrome Extension template with Plasmo",
   copyDirs: [
-    { from: "/plugins/turbo-chrome-extension/chrome", to: "/apps/chrome" },
+    { from: "plugins/turbo-chrome-extension/chrome", to: "apps/chrome" },
   ],
   addLines: [
     { file: ".env.example", lines: ["NEXT_PUBLIC_EXTENSION_ID="] },
@@ -25,12 +25,12 @@ export const turboChromeExtensionPlugin = createPlugin(() => ({
   ],
   copyFiles: [
     {
-      from: "/plugins/turbo-chrome-extension/ext-auth-signin.tsx",
-      to: "/apps/nextjs/src/pages/ext-auth/signin.tsx",
+      from: "plugins/turbo-chrome-extension/ext-auth-signin.tsx",
+      to: "apps/nextjs/src/pages/ext-auth/signin.tsx",
     },
     {
-      from: "/plugins/turbo-chrome-extension/ext-auth-signout.tsx",
-      to: "/apps/nextjs/src/pages/ext-auth/signout.tsx",
+      from: "plugins/turbo-chrome-extension/ext-auth-signout.tsx",
+      to: "apps/nextjs/src/pages/ext-auth/signout.tsx",
     },
   ],
 }));

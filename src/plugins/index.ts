@@ -1,5 +1,4 @@
 import fs from "fs-extra";
-import { env } from "~/env.mjs";
 import path from "path";
 import { getWorkingDir } from "~/utils/get-user-data";
 
@@ -24,39 +23,53 @@ export const createPlugin =
         const plugin = pluginFactory(data);
 
         (plugin.copyDirs || []).forEach((copyDir) => {
+          const parentDir = path.dirname(path.join(projectPath, copyDir.to));
+
+          if (!fs.existsSync(parentDir)) {
+            fs.mkdirSync(parentDir, { recursive: true });
+          }
+
           fs.copySync(
-            `${env.PKG_ROOT}${copyDir.from}`,
-            `${projectPath}${copyDir.to}`
+            path.join(process.env.PKG_ROOT || "", copyDir.from),
+            path.join(projectPath, copyDir.to)
           );
         });
 
         (plugin.copyFiles || []).forEach((copyFile) => {
+          const parentDir = path.dirname(path.join(projectPath, copyFile.to));
+
+          if (!fs.existsSync(parentDir)) {
+            fs.mkdirSync(parentDir, { recursive: true });
+          }
+
           fs.copyFileSync(
-            `${env.PKG_ROOT}${copyFile.from}`,
-            `${projectPath}${copyFile.to}`
+            path.join(process.env.PKG_ROOT || "", copyFile.from),
+            path.join(projectPath, copyFile.to)
           );
         });
 
         (plugin.replaceFiles || []).forEach((replaceFile) => {
           fs.writeFileSync(
-            `${projectPath}${replaceFile.to}`,
-            fs.readFileSync(`${env.PKG_ROOT}${replaceFile.from}`)
+            path.join(projectPath, replaceFile.to),
+            fs.readFileSync(
+              path.join(process.env.PKG_ROOT || "", replaceFile.from)
+            )
           );
         });
 
         (plugin.addLines || []).forEach((addLine) => {
           fs.writeFileSync(
-            `${projectPath}${addLine.file}`,
-            fs.readFileSync(`${env.PKG_ROOT}${addLine.file}`).toString() +
+            path.join(projectPath, addLine.file),
+            fs.readFileSync(path.join(projectPath, addLine.file)).toString() +
               addLine.lines.join("\n")
           );
         });
 
         (plugin.replaceInFiles || []).forEach((replaceInFile) => {
           fs.writeFileSync(
-            `${projectPath}${replaceInFile.file}`,
+            path.join(projectPath, replaceInFile.file),
             fs
-              .readFileSync(`${env.PKG_ROOT}${replaceInFile.file}`)
+              .readFileSync(path.join(projectPath, replaceInFile.file))
               .toString()
               .replace(replaceInFile.from, replaceInFile.to)
           );
