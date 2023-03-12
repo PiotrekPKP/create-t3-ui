@@ -69,19 +69,19 @@ export const projectRouter = createTRPCRouter({
         case "npm":
           await execaCommand(
             `npx create-t3-app@latest ${projectPath} --CI ${flags}`,
-            { cwd: getWorkingDir() }
+            { cwd: getWorkingDir(), env: { NODE_ENV: "development" } }
           );
           break;
         case "pnpm":
           await execaCommand(
             `pnpx create-t3-app@latest ${projectPath} --CI ${flags}`,
-            { cwd: getWorkingDir() }
+            { cwd: getWorkingDir(), env: { NODE_ENV: "development" } }
           );
           break;
         case "yarn":
           await execaCommand(
             `yarn create t3-app ${projectPath} --CI ${flags}`,
-            { cwd: getWorkingDir() }
+            { cwd: getWorkingDir(), env: { NODE_ENV: "development" } }
           );
           break;
       }
