@@ -2,7 +2,7 @@
   "name": "create-t3-ui",
   "description": "Simple to use UI for initializing your T3 app",
   "license": "MIT",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "type": "module",
   "repository": {
     "type": "git",
