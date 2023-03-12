@@ -68,19 +68,19 @@ export const projectRouter = createTRPCRouter({
       switch (input.packageManager) {
         case "npm":
           await execaCommand(
-            `npx create-t3-app@latest --CI ${flags} ${projectPath}`,
+            `npx create-t3-app@latest ${projectPath} --CI ${flags}`,
             { cwd: getWorkingDir() }
           );
           break;
         case "pnpm":
           await execaCommand(
-            `pnpx create-t3-app@latest --CI ${flags} ${projectPath}`,
+            `pnpx create-t3-app@latest ${projectPath} --CI ${flags}`,
             { cwd: getWorkingDir() }
           );
           break;
         case "yarn":
           await execaCommand(
-            `yarn create t3-app --CI ${flags} ${projectPath}`,
+            `yarn create t3-app ${projectPath} --CI ${flags}`,
             { cwd: getWorkingDir() }
           );
           break;
@@ -88,10 +88,6 @@ export const projectRouter = createTRPCRouter({
 
       new Array(...new Set(input.plugins)).forEach((plugin) => {
         APP_PLUGINS[plugin.pluginId].plugin(input.name, plugin.data).apply();
-      });
-
-      await execaCommand(`${input.packageManager} install`, {
-        cwd: projectPath,
       });
     }),
 });
