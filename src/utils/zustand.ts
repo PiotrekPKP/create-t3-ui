@@ -30,6 +30,7 @@ interface TurboAction {
     additionalTemplate: NonNullable<TurboState["plugins"]>[number]["pluginId"]
   ) => void;
   initializeAdditionalTemplates: () => void;
+  initializePlugins: () => void;
   clearStore: () => void;
 }
 
@@ -61,6 +62,7 @@ export const useTurboState = create<TurboState & TurboAction>((set) => ({
       plugins: (state.plugins || []).filter((p) => p.pluginId !== plugin),
     })),
   initializeAdditionalTemplates: () => set({ additionalTemplates: [] }),
+  initializePlugins: () => set({ plugins: [] }),
   clearStore: () =>
     set({
       name: undefined,

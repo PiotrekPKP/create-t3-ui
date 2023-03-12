@@ -57,7 +57,15 @@ const Plugins: NextPage = () => {
           </div>
         ))}
 
-        <Button onClick={async () => await router.push("/turbo/summary")}>
+        <Button
+          onClick={async () => {
+            if (!turboState.plugins) {
+              turboState.initializePlugins();
+            }
+
+            await router.push("/turbo/summary");
+          }}
+        >
           Next
         </Button>
       </div>
