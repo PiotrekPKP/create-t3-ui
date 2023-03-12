@@ -5,12 +5,19 @@ import { execaCommand } from "execa";
 import { getWorkingDir } from "~/utils/get-user-data";
 import { z } from "zod";
 import { turboChromeExtensionPlugin } from "~/plugins/internal";
+import { TurboActivePlugins, TURBO_PLUGINS } from "~/plugins/public";
 
 export const projectRouter = createTRPCRouter({
   createTurbo: publicProcedure
     .input(
       projectMetaSchema.extend({
         additionalTemplates: z.array(z.enum(["chrome"])),
+        plugins: z.array(
+          z.object({
+            pluginId: z.enum([TurboActivePlugins.TurboSetupEnvFile]),
+            data: z.unknown(),
+          })
+        ),
       })
     )
     .mutation(async ({ input }) => {
@@ -24,6 +31,10 @@ export const projectRouter = createTRPCRouter({
       if (input.additionalTemplates.includes("chrome")) {
         turboChromeExtensionPlugin(input.name, {}).apply();
       }
+
+      new Array(...new Set(input.plugins)).forEach((plugin) => {
+        TURBO_PLUGINS[plugin.pluginId].plugin(input.name, plugin.data).apply();
+      });
 
       await execaCommand(`${input.packageManager} install`, {
         cwd: projectPath,

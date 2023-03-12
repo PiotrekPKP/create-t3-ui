@@ -1,6 +1,7 @@
 import { type NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import BackButton from "~/components/back-button";
 import { Button } from "~/components/ui/button";
 import { Label } from "~/components/ui/label";
 import { api } from "~/utils/api";
@@ -18,7 +19,8 @@ const Summary: NextPage = () => {
     if (
       !turboState.name ||
       !turboState.packageManager ||
-      !turboState.additionalTemplates
+      !turboState.additionalTemplates ||
+      !turboState.plugins
     ) {
       router.push("/turbo");
     }
@@ -31,6 +33,7 @@ const Summary: NextPage = () => {
       name: turboState.name || "",
       packageManager: turboState.packageManager || "pnpm",
       additionalTemplates: turboState.additionalTemplates || [],
+      plugins: turboState.plugins || [],
     });
 
     await router.push("/done");
@@ -51,6 +54,7 @@ const Summary: NextPage = () => {
 
   return (
     <div>
+      <BackButton />
       <h1>Summary</h1>
       <p>Check everything. Press create project afterwards.</p>
 
@@ -71,6 +75,15 @@ const Summary: NextPage = () => {
             {["nextjs", "expo", ...(turboState.additionalTemplates || [])].join(
               ", "
             )}
+          </span>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <Label>Plugins</Label>
+          <span className="text-xl">
+            {turboState.plugins && turboState.plugins.length > 0
+              ? turboState.plugins?.map((p) => p.pluginId).join(", ")
+              : "No plugins"}
           </span>
         </div>
 

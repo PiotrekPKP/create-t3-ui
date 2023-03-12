@@ -1,7 +1,6 @@
 import { createPlugin } from ".";
 
 export const turboChromeExtensionPlugin = createPlugin(() => ({
-  id: "turbo-chrome-extension",
   name: "Chrome Extension with Plasmo",
   description: "Adds Chrome Extension template with Plasmo",
   copyDirs: [

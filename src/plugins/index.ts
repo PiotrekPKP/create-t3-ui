@@ -3,18 +3,15 @@ import path from "path";
 import { getWorkingDir } from "~/utils/get-user-data";
 
 type Plugin = {
-  id: string;
-  name: string;
-  description: string;
-  copyDirs?: { from: string; to: string }[];
-  copyFiles?: { from: string; to: string }[];
-  replaceFiles?: { from: string; to: string }[];
+  copyDirs?: { from: string; to: string; internal?: boolean }[];
+  copyFiles?: { from: string; to: string; internal?: boolean }[];
+  replaceFiles?: { from: string; to: string; internal?: boolean }[];
   addLines?: { file: string; lines: string[] }[];
   replaceInFiles?: { file: string; from: string; to: string }[];
 };
 
 export const createPlugin =
-  <T extends object>(pluginFactory: (variables: T) => Plugin) =>
+  <T>(pluginFactory: (variables: T) => Plugin) =>
   (projectName: string, data: T) => {
     const projectPath = path.join(getWorkingDir(), projectName);
 
@@ -30,7 +27,10 @@ export const createPlugin =
           }
 
           fs.copySync(
-            path.join(process.env.PKG_ROOT || "", copyDir.from),
+            path.join(
+              copyDir.internal ? projectPath : process.env.PKG_ROOT || "",
+              copyDir.from
+            ),
             path.join(projectPath, copyDir.to)
           );
         });
@@ -43,7 +43,10 @@ export const createPlugin =
           }
 
           fs.copyFileSync(
-            path.join(process.env.PKG_ROOT || "", copyFile.from),
+            path.join(
+              copyFile.internal ? projectPath : process.env.PKG_ROOT || "",
+              copyFile.from
+            ),
             path.join(projectPath, copyFile.to)
           );
         });
@@ -52,7 +55,10 @@ export const createPlugin =
           fs.writeFileSync(
             path.join(projectPath, replaceFile.to),
             fs.readFileSync(
-              path.join(process.env.PKG_ROOT || "", replaceFile.from)
+              path.join(
+                replaceFile.internal ? projectPath : process.env.PKG_ROOT || "",
+                replaceFile.from
+              )
             )
           );
         });

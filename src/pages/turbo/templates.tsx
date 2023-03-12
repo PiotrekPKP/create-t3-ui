@@ -121,10 +121,10 @@ const Templates: NextPage = () => {
               turboState.initializeAdditionalTemplates();
             }
 
-            await router.push("/turbo/summary");
+            await router.push("/turbo/plugins");
           }}
         >
-          Create project
+          Next
         </Button>
       </div>
     </div>
