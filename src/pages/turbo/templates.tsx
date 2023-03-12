@@ -13,6 +13,7 @@ import {
 } from "~/components/ui/tooltip";
 import { api, type RouterInputs } from "~/utils/api";
 import { cn } from "~/utils/cn";
+import { useTurboState } from "~/utils/zustand";
 
 const TemplatePreview: React.FC<{
   name: string;
@@ -69,52 +70,14 @@ const TemplatePreview: React.FC<{
 };
 
 const Templates: NextPage = () => {
-  const [settingUp, setSettingUp] = useState(false);
-  const [additionalTemplates, setAdditionalTemplates] = useState<
-    RouterInputs["project"]["createTurbo"]["additionalTemplates"]
-  >([]);
-
-  const { mutateAsync } = api.project.createTurbo.useMutation();
-
+  const turboState = useTurboState();
   const router = useRouter();
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const data = localStorage.getItem("__CREATE_T3_UI_TURBO_DATA__");
-
-      if (!data) {
-        router.push("/turbo");
-      }
+    if (!turboState.name || !turboState.packageManager) {
+      router.push("/turbo");
     }
-  }, [router]);
-
-  const createProject = async () => {
-    setSettingUp(true);
-
-    const dataRaw = localStorage.getItem("__CREATE_T3_UI_TURBO_DATA__") || "{}";
-    const previousData = JSON.parse(dataRaw) as {
-      name: string;
-      packageManager: "pnpm";
-    };
-
-    await mutateAsync({ ...previousData, additionalTemplates });
-    await router.push("/done");
-  };
-
-  if (settingUp) {
-    return (
-      <>
-        <div>
-          <h1>Setting up your project...</h1>
-          <p>Wait for everything to finish...</p>
-
-          <div className="mt-12">
-            <div>Loading...</div>
-          </div>
-        </div>
-      </>
-    );
-  }
+  }, [turboState]);
 
   return (
     <div>
@@ -143,19 +106,25 @@ const Templates: NextPage = () => {
           name="Chrome Extension with Plasmo"
           description="A template for creating a Chrome Extension with Plasmo"
           id="chrome"
-          checked={additionalTemplates.includes("chrome")}
+          checked={turboState.additionalTemplates?.includes("chrome") ?? false}
           onCheckedChange={(id, checked) => {
             if (checked) {
-              setAdditionalTemplates([...additionalTemplates, id as "chrome"]);
+              turboState.addToAdditionalTemplates(id as "chrome");
             } else {
-              setAdditionalTemplates(
-                additionalTemplates.filter((i) => i !== id)
-              );
+              turboState.removeFromAdditionalTemplates(id as "chrome");
             }
           }}
         />
 
-        <Button onClick={async () => await createProject()}>
+        <Button
+          onClick={async () => {
+            if (!turboState.additionalTemplates) {
+              turboState.initializeAdditionalTemplates();
+            }
+
+            await router.push("/turbo/summary");
+          }}
+        >
           Create project
         </Button>
       </div>

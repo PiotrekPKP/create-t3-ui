@@ -22,7 +22,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
-import { type PackageManager } from "~/utils/get-user-data";
+import { useTurboState } from "~/utils/zustand";
 
 type FormData = RouterInputs["project"]["createTurbo"];
 
@@ -40,6 +40,8 @@ export const projectMetaSchema = z.object({
 });
 
 const Index: NextPage = () => {
+  const turboState = useTurboState();
+
   const { data } = api.metadata.getCurrentDirectory.useQuery();
 
   const {
@@ -48,10 +50,11 @@ const Index: NextPage = () => {
     watch,
     formState: { errors },
     setValue,
-  } = useForm<FormData>({
+  } = useForm<z.infer<typeof projectMetaSchema>>({
     resolver: zodResolver(projectMetaSchema),
     defaultValues: {
       packageManager: "pnpm",
+      name: turboState.name,
     },
   });
 
@@ -59,7 +62,9 @@ const Index: NextPage = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      localStorage.setItem("__CREATE_T3_UI_TURBO_DATA__", JSON.stringify(data));
+      turboState.setName(data.name);
+      turboState.setPackageManager(data.packageManager);
+
       await router.push("/turbo/templates");
     } catch (e) {}
   });
@@ -82,22 +87,6 @@ const Index: NextPage = () => {
       setProjectPath(data);
     }
   }, [data]);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const data = localStorage.getItem("__CREATE_T3_UI_TURBO_DATA__");
-      if (data) {
-        setValue(
-          "name",
-          (
-            JSON.parse(data) as
-              | { name: string; packageManager: PackageManager }
-              | undefined
-          )?.["name"] || ""
-        );
-      }
-    }
-  }, [setValue]);
 
   return (
     <div>

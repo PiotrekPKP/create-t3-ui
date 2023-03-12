@@ -3,13 +3,12 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { Button } from "~/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { useTurboState } from "~/utils/zustand";
 
 const Done: NextPage = () => {
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      localStorage.clear();
-    }
-  }, []);
+  const { clearStore } = useTurboState();
+
+  useEffect(() => clearStore(), []);
 
   return (
     <div>
